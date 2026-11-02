@@ -12,6 +12,30 @@ Three ways to learn from **unlabelled** images, implemented and trained on CIFAR
 
 ---
 
+## Table of Contents
+
+- [Contents](#contents)
+- [1. SimCLR: contrastive self-supervised learning](#1-simclr-contrastive-self-supervised-learning)
+  - [Concept](#concept)
+  - [Architecture](#architecture)
+  - [What I implemented](#what-i-implemented)
+  - [Results](#results)
+- [2. Masked Autoencoder (MAE) with a Vision Transformer](#2-masked-autoencoder-mae-with-a-vision-transformer)
+  - [Concept](#concept-1)
+  - [Architecture (47.6 M parameters)](#architecture-476-m-parameters)
+  - [What I implemented](#what-i-implemented-1)
+  - [Results](#results-1)
+- [3. FixMatch: semi-supervised learning](#3-fixmatch-semi-supervised-learning)
+  - [Concept](#concept-2)
+  - [Architecture and setup](#architecture-and-setup)
+  - [What I implemented](#what-i-implemented-2)
+  - [Results](#results-2)
+- [Bonus: synthetic data for extremely low-label learning (implemented, not yet run)](#bonus-synthetic-data-for-extremely-low-label-learning-implemented-not-yet-run)
+- [Running](#running)
+- [References](#references)
+
+---
+
 ## Contents
 
 | Notebook | Method | Framework |
