@@ -1,0 +1,10 @@
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
+*.pyc
+.venv/
+data/
+cifar10/
+checkpoints/
+output_dir/
+bonus_out/

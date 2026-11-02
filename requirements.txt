@@ -1,0 +1,14 @@
+# Colab GPU runtime; each notebook's setup cell pins these
+jax==0.4.38
+flax==0.10.4
+optax==0.2.4
+jax-resnet==0.0.4   # install with --no-deps
+torch
+torchvision
+tensorboard
+omegaconf
+gdown
+umap-learn
+seaborn
+# bonus only
+diffusers>=0.27
