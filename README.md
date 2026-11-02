@@ -6,7 +6,7 @@ Three ways to learn from **unlabelled** images, implemented and trained on CIFAR
 - **MAE**: a Vision Transformer masked autoencoder (PyTorch)
 - **FixMatch**: semi-supervised learning with pseudo-labels (JAX)
 
-> Practical assignment for **DD2412 Deep Learning, Advanced Course** at KTH Royal Institute of Technology. The course provided the notebook scaffolding, data pipelines and the FixMatch baseline checkpoint and logs. I implemented the core components (losses, attention, the ViT/MAE forward passes, the FixMatch objective), the extra experiments and diagnostics, and the analysis.
+> Practical assignment for **DD2412 Deep Learning, Advanced Course** at KTH Royal Institute of Technology. In this practical, I try to reproduce the key results of the three original papers, [SimCLR](https://arxiv.org/abs/2002.05709) (Chen et al., 2020), [MAE](https://arxiv.org/abs/2111.06377) (He et al., 2022) and [FixMatch](https://arxiv.org/abs/2001.07685) (Sohn et al., 2020), on CIFAR-10 with a much smaller compute budget (a single Colab GPU and short training runs). I also analyse where and why my results differ from those reported in the papers.
 
 **Stack:** JAX 0.4.38 · Flax 0.10.4 · Optax 0.2.4 · `jax-resnet` · PyTorch 2.x · torchvision · TensorBoard. Trained on Google Colab GPUs.
 
@@ -57,6 +57,8 @@ Two random augmentations of the same image form a **positive pair**. Every other
 ```
 
 ### Architecture
+![SimCLR architecture](Media/SimCLR%20-%20Arch.png)
+
 `CIFAR-10 image → 2 augmented views → ResNet-18 encoder (global avg-pool) → projection head Dense(128) → ReLU → Dense(128) → NT-Xent (τ = 0.07)`.
 After pre-training, the projection head is dropped and the encoder is frozen. A linear classifier is then trained on top (**linear evaluation protocol**).
 
@@ -85,6 +87,8 @@ Pre-training: 5 epochs, batch 128, SGD with momentum. The loss fell from 3.19 to
 The image is split into 16×16 patches and **75 % of them are randomly masked**. The encoder sees only the visible patches. A lightweight decoder reconstructs the missing pixels, and the MSE loss is computed **on the masked patches only**.
 
 ### Architecture (47.6 M parameters)
+![MAE architecture](Media/MAE%20-%20Arch.png)
+
 ```
 224×224 image → PatchEmbed (conv 16×16, stride 16) → 196 tokens + pos-embed
   → random masking (keep 49 tokens)
@@ -135,6 +139,8 @@ L = L_s(labelled) + λ · (1/μB) Σ 1[max p(y|weak) ≥ τ] · CE(argmax p(y|we
 ```
 
 ### Architecture and setup
+![FixMatch architecture](Media/FixMatch%20-%20Arch.png)
+
 ResNet-18 (`jax-resnet`), 4,000 labelled CIFAR-10 images (400 per class), all 50k images used as unlabelled data, μ = 7 (64 labelled + 448 unlabelled images per batch), SGD with momentum 0.9, cosine LR decay `η·cos(7πk/16K)`, weight decay 5e-6.
 
 ### What I implemented
